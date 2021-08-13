@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ejemplo crear un nodo de texto</title>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <p>
+      <strong>¿Vamos a aprender JavaScript?</strong>
+    </p>
+    <button onclick="agregarTextNode('SI! ');">SI!</button>
+    <button onclick="agregarTextNode('NO! ');">NO!</button>
+    <button onclick="agregarTextNode('PODEMOS! ');">PODEMOS!</button>
+
+    <hr />
+
+    <p id="p1">Respuestas:</p>
+    <hr />
+    <button onclick="quitarUltimoTextNode();">Borrar último</button>
+    <button onclick="mostrarNodos()">Mostrar Nodos</button>
+    <div id="nodosHijo"></div>
+  </body>
+  <script>
+    //Encontrar el nodo p1
+    const p1 = document.getElementById("p1");
+    //Encontrar el nodo donde mostrar los hijos
+    const nodosHijo = document.getElementById("nodosHijo");
+    //Encontrar el nodo para mantener en p1
+    const nodoFijo = p1.firstChild;
+    function agregarTextNode(text) {
+      //Crear el nodo tipo texto
+      var nuevoTexto = document.createTextNode(text);
+      //Agregar el nodo al nodo padre
+      p1.appendChild(nuevoTexto);
+    }
+
+    function quitarUltimoTextNode() {
+      //Encontrar el ultimo nodo de p1
+      var ultimoTexto = p1.lastChild;
+      //No quitar si el nodo es el nodo fijo
+      if (ultimoTexto === nodoFijo) {
+        return;
+      }
+      //Quitar si el nodo no esta vacio
+      if (ultimoTexto !== null) {
+        p1.removeChild(ultimoTexto);
+      }
+    }
+
+    function mostrarNodos() {
+      //Limpiar el contenido de nodosHijo
+      nodosHijo.innerHTML = "";
+      //Encontrar los nodos hijos
+      var nodos = p1.childNodes;
+      var secuencia = 0;
+      //Iterar sobre los nodos hijo de p1
+      for (let nodo of nodos) {
+        if (nodo === nodoFijo) {
+          continue;
+        }
+        //Crear un nodo parrafo <p>
+        var nuevoNodo = document.createElement("p");
+        //Definir un atributo por setAttribute
+        nuevoNodo.setAttribute("id", "parrafo" + secuencia++);
+        //Definir un atributo Style
+        nuevoNodo.setAttribute("style", "font-size: 18pt;");
+        //Definir un atributo de estilo por la propiedad style del nodo
+        nuevoNodo.style.color = "red";
+        //Definir el contenido del nodo p con el texto de los hodos hijos de p1
+        nuevoNodo.innerHTML = nodo.nodeValue;
+        //Agregar el nuevo nodo a los hijos de nodosHijo
+        nodosHijo.appendChild(nuevoNodo);
+      }
+    }
+  </script>
+</html>

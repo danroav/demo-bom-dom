@@ -5,7 +5,7 @@
     <title>Ejemplo crear un nodo de texto</title>
     <meta charset="UTF-8" />
   </head>
-  <body>
+  <body onmousedown="mostrarCoords">
     <p>
       <strong>¿Vamos a aprender JavaScript?</strong>
     </p>
@@ -20,14 +20,37 @@
     <button onclick="quitarUltimoTextNode();">Borrar último</button>
     <button onclick="mostrarNodos()">Mostrar Nodos</button>
     <div id="nodosHijo"></div>
+    <div id="coordX"></div>
+    <div id="coordY"></div>
   </body>
   <script>
-    //Encontrar el nodo p1
+    const coordX = document.getElementById("coordX");
+    const coordY = document.getElementById("coordY");
+    function mostrarCoords(evt, p2, p3) {
+      coordX.innerHTML = "X: ${evt.clientX} ";
+      coordY.innerHTML = evt.clientY;
+      alert(
+        "clienteX value: " +
+          evt.clientX +
+          "\n" +
+          "clientY value: " +
+          evt.clientY +
+          "\n" +
+          "p2: " +
+          p2 +
+          "\n" +
+          "p3: " +
+          p3 +
+          "\n"
+      );
+    }
+    //Encontrar el nodo con id p1
     const p1 = document.getElementById("p1");
     //Encontrar el nodo donde mostrar los hijos
     const nodosHijo = document.getElementById("nodosHijo");
     //Encontrar el nodo para mantener en p1
     const nodoFijo = p1.firstChild;
+
     function agregarTextNode(text) {
       //Crear el nodo tipo texto
       var nuevoTexto = document.createTextNode(text);
